@@ -71,6 +71,7 @@ public class Game {
     public void finish() {
         isPlaying = false;
 
+        //Print out who won or if the turn limit was reached.
         if (player1.isDead()) {
             System.out.printf("%s has died, %s wins!\n",
                     player1.getName(), player2.getName());
@@ -82,19 +83,21 @@ public class Game {
         else {
             System.out.println("Game over, the turn limit was reached");
         }
+
+        System.exit(0); //Exit the process.
     }
 
     public void executeTurn(int roundNo) {
         System.out.println();
         System.out.println("Round " + roundNo);
-        System.out.println("--------");
+        System.out.println("------------------------------------------------------------------------------------");
 
         for (int i = 0; isPlaying && i < 2; i++) {
             isComputerPlaying = i == 0; //Alternate between the user and computer's play.
 
             Player player = getCurrentPlayer();
 
-            player.drawCard(); //Draw a card from the deck into the player's hand.
+            player.drawCard(); //Dr aw a card from the deck into the player's hand.
             player.playCard(); //Ask the player to play one of their cards.
             System.out.println();
 

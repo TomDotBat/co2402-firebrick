@@ -30,7 +30,7 @@ public class Player {
     }
 
     public void removeHealth(int amount, boolean playerOnly) {
-        if (playerOnly || minions.size() == 0) {
+        if (playerOnly || !hasMinions()) {
             health -= amount;
 
             if (health <= 0) { //We're dead, finish the game.
@@ -160,7 +160,7 @@ public class Player {
         System.out.println(name + " Statistics");
         System.out.println("----------------------");
         System.out.println("Health: " + health);
-        System.out.println("Cards on table: " + String.join(", ", getCardNames()));
+        System.out.println("Cards on table: " + String.join(", ", getMinionNames()));
     }
 
     private final String name;

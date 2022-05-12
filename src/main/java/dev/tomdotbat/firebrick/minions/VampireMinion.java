@@ -27,7 +27,7 @@ public class VampireMinion extends Minion {
     }
 
     private void printHealMessage() {
-        System.out.printf("The %s of %s healed by %d, leaving them with %d health.",
+        System.out.printf("The %s of %s healed by %d, leaving them with %d health.\n",
                 getName(), getOwner().getName(), healAmount, getHealth());
     }
 

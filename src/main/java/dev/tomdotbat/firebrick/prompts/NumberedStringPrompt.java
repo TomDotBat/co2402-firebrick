@@ -41,11 +41,15 @@ public class NumberedStringPrompt extends Prompt<Integer> {
             return Game.getInstance().getRandomInt(acceptableAnswers.size());
         }
 
-        int input;
+        int input = 0;
 
         do {
             System.out.println(getMessage());
-            input = scanner.nextInt();
+
+            String inputString = scanner.nextLine(); //Read the next input and attempt to parse it as an integer.
+            try {
+                input = Integer.parseInt(inputString);
+            } catch (NumberFormatException ignored) {}
         } while(!isValidInput(input)); //Prompt the user for their input until the response is valid.
 
         return input - 1;
