@@ -137,7 +137,6 @@ public class Player {
         }
 
         hand.add(card);
-
         System.out.println(name + " draws " + card.getName());
     }
 
@@ -151,7 +150,7 @@ public class Player {
         Card card = hand.get(cardNo);
 
         System.out.println(name + " plays " + card.getName());
-        card.play(this); //Play the card and remove it from the player's hand.
+        card.play(this, Game.getInstance().getCurrentOpponent()); //Play the card and remove it from the player's hand.
 
         hand.remove(cardNo);
     }

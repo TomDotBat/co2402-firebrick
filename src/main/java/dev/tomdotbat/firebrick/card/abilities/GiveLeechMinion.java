@@ -2,21 +2,18 @@ package dev.tomdotbat.firebrick.card.abilities;
 
 import dev.tomdotbat.firebrick.Player;
 import dev.tomdotbat.firebrick.minions.LeechMinion;
+import dev.tomdotbat.firebrick.minions.Minion;
 
-public class GiveLeechMinion extends CardAbility {
+public class GiveLeechMinion extends MinionAbility {
     public GiveLeechMinion(String name, int attackPower, int health, int playerHealAmount) {
-        super(name);
-        this.attackPower = attackPower;
-        this.health = health;
+        super(name, attackPower, health);
         this.playerHealAmount = playerHealAmount;
     }
 
     @Override
-    public void play(Player player) {
-        player.giveMinion(new LeechMinion(player, getName(), attackPower, health, playerHealAmount));
+    protected Minion createMinion(Player player) {
+        return new LeechMinion(player, getName(), getAttackPower(), getHealth(), playerHealAmount);
     }
 
-    private final int attackPower;
-    private final int health;
     private final int playerHealAmount;
 }

@@ -1,20 +1,16 @@
 package dev.tomdotbat.firebrick.card.abilities;
 
 import dev.tomdotbat.firebrick.Player;
+import dev.tomdotbat.firebrick.minions.Minion;
 import dev.tomdotbat.firebrick.minions.TrampleMinion;
 
-public class GiveTrampleMinion extends CardAbility {
+public class GiveTrampleMinion extends MinionAbility {
     public GiveTrampleMinion(String name, int attackPower, int health) {
-        super(name);
-        this.attackPower = attackPower;
-        this.health = health;
+        super(name, attackPower, health);
     }
 
     @Override
-    public void play(Player player) {
-        player.giveMinion(new TrampleMinion(player, getName(), attackPower, health));
+    protected Minion createMinion(Player player) {
+        return new TrampleMinion(player, getName(), getAttackPower(), getHealth());
     }
-
-    private final int attackPower;
-    private final int health;
 }

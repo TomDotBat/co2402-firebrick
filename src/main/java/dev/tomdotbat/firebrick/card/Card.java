@@ -13,8 +13,8 @@ public class Card {
         return name;
     }
 
-    public void play(Player player) {
-        ability.play(player);
+    public void play(Player player, Player target) {
+        ability.play(player, target);
     }
 
     private final String name;

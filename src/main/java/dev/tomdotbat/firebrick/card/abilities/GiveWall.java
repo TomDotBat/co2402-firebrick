@@ -10,7 +10,7 @@ public class GiveWall extends CardAbility {
     }
 
     @Override
-    public void play(Player player) {
+    public void play(Player player, Player target) {
         player.giveMinion(new Wall(player, getName(), health));
     }
 

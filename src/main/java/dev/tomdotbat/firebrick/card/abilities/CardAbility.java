@@ -11,7 +11,7 @@ public abstract class CardAbility {
         return name;
     }
 
-    public abstract void play(Player player);
+    public abstract void play(Player player, Player target);
 
     private final String name;
 }
