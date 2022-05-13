@@ -35,21 +35,12 @@ public abstract class Minion {
 
         health -= amount - armour; //Remove the amount of health minus any armour this minion has.
 
-        //If the minion has health lower 1 they should be removed from their owner's minions list.
-        if (isDead()) {
-            owner.killMinion(this);
-        }
-
         //Return any excess damage applied if any.
         return Math.max(diff, 0);
     }
 
     public boolean isDead() {
         return health <= 0;
-    }
-
-    public int getArmour() {
-        return armour;
     }
 
     public void addArmour(int amount) {
@@ -61,6 +52,10 @@ public abstract class Minion {
     }
 
     public void attackPlayer(Player player) {
+        if (isDead()) { //Dead minions cannot attack.
+            return;
+        }
+
         if (player.hasMinions()) { //Attack the player's minions first.
             attackPlayerMinions(player);
             return;
@@ -72,6 +67,10 @@ public abstract class Minion {
     }
 
     public int attackPlayerMinions(Player player) {
+        if (isDead()) { //Dead minions cannot attack.
+            return 0;
+        }
+
         int attackPower = getAttackPower();
 
         if (player.hasMinions()) {

@@ -14,8 +14,8 @@ public class Lightning extends Spell {
 
         for (int i = 0; i < 2; i++) { //Remove the health from both players and their minions.
             Player player = i == 0 ? caster : opponent;
-            player.removeHealth(damage, true);
 
+            player.removeHealth(damage, true);
             printPlayerDamage(player);
 
             for (Minion minion : player.getMinions()) {

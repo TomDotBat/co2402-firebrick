@@ -49,6 +49,10 @@ public class Player {
         return health <= 0;
     }
 
+    public boolean isComputer() {
+        return isComputer;
+    }
+
     public void setIsComputer(boolean computer) {
         isComputer = computer;
     }
@@ -61,8 +65,16 @@ public class Player {
         minions.add(minion);
     }
 
-    public void killMinion(Minion minion) {
-        minions.remove(minion);
+    public void clearDeadMinions() { //Removes any dead minions from the player's minion list.
+        List<Minion> deadMinions = new ArrayList<>();
+
+        for (Minion minion : minions) {
+            if (minion.isDead()) {
+                deadMinions.add(minion);
+            }
+        }
+
+        minions.removeAll(deadMinions);
     }
 
     public Minion getRandomMinion() {
@@ -153,6 +165,7 @@ public class Player {
         card.play(this, Game.getInstance().getCurrentOpponent()); //Play the card and remove it from the player's hand.
 
         hand.remove(cardNo);
+        clearDeadMinions();
     }
 
     public void printStats() {
@@ -164,8 +177,8 @@ public class Player {
 
     private final String name;
     private int health = 30;
-    private List<Card> hand = new ArrayList<>();
-    private Stack<Card> deck;
+    private final List<Card> hand = new ArrayList<>();
+    private final Stack<Card> deck;
     private List<Minion> minions = new ArrayList<>();
     private boolean isComputer;
 }

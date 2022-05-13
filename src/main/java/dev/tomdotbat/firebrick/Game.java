@@ -10,20 +10,23 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-    private Game() {
-        long randomSeed = 0;
+    static {
+        long seed = 0;
 
         File file = new File("./RandomSeed.txt"); //Load the random seed from the seed file.
         try {
             Scanner scanner = new Scanner(file);
-            randomSeed = scanner.nextLong();
+            seed = scanner.nextLong(); //Read the random seed as a long.
             scanner.close();
-        } catch (FileNotFoundException ignored) {}
+        } catch (FileNotFoundException ex) {
+            System.err.println("Failed to load the seed from RandomSeed.txt");
+            ex.printStackTrace();
+        }
 
-        random = new Random(randomSeed);
+        RANDOM_SEED = seed;
     }
 
-    public static Game getInstance() {
+    public static Game getInstance() { //Singleton instance getter.
         if (instance == null) {
             instance = new Game();
         }
@@ -93,40 +96,39 @@ public class Game {
         System.out.println("------------------------------------------------------------------------------------");
 
         for (int i = 0; isPlaying && i < 2; i++) {
-            isComputerPlaying = i == 0; //Alternate between the user and computer's play.
+            currentPlayer = i == 0 ? player1 : player2; //Alternate between the user and computer's play.
 
-            Player player = getCurrentPlayer();
+            Player opponent = getCurrentOpponent();
 
-            player.drawCard(); //Dr aw a card from the deck into the player's hand.
-            player.playCard(); //Ask the player to play one of their cards.
+            currentPlayer.drawCard(); //Dr aw a card from the deck into the player's hand.
+            currentPlayer.playCard(); //Ask the player to play one of their cards.
+            currentPlayer.clearDeadMinions();
+            opponent.clearDeadMinions();
             System.out.println();
 
-            player.minionAttack(getCurrentOpponent()); //Make the player's minions attack the opponents.
+            currentPlayer.minionAttack(opponent); //Make the player's minions attack the opponents.
+            currentPlayer.clearDeadMinions();
+            opponent.clearDeadMinions();
             System.out.println();
 
             //Print the statistics of both players at the end of each turn.
-            player.printStats();
+            currentPlayer.printStats();
             System.out.println();
             getCurrentOpponent().printStats();
             System.out.println();
         }
     }
 
-    public boolean isPlaying() {
-        return isPlaying;
-    }
-
-
     public Player getCurrentPlayer() {
-        return isComputerPlaying ? player2 : player1;
+        return currentPlayer;
     }
 
     public Player getCurrentOpponent() {
-        return isComputerPlaying ? player1 : player2;
+        return currentPlayer == player1 ? player2 : player1;
     }
 
     public boolean isComputerPlaying() {
-        return isComputerPlaying;
+        return currentPlayer != null && currentPlayer.isComputer();
     }
 
     public int getRandomInt(int max) {
@@ -134,7 +136,7 @@ public class Game {
     }
 
     private Player createPlayer(String characterName) {
-        try {
+        try { //Creates a player with the given name and loads their deck file.
             return new Player(characterName, new DeckReader("./" + characterName + ".txt").read());
         }
         catch (FileNotFoundException ex) {
@@ -142,12 +144,15 @@ public class Game {
         }
     }
 
+    private Game() {} //Prevent instantiation of singleton class.
+
+    public static final long RANDOM_SEED;
     private static Game instance;
 
     private boolean isPlaying;
     private Player player1;
     private Player player2;
-    private boolean isComputerPlaying;
-    private final Random random;
+    private Player currentPlayer;
+    private final Random random = new Random(RANDOM_SEED);
 
 }
