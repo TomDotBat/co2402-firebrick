@@ -100,7 +100,7 @@ public class Game {
 
             Player opponent = getCurrentOpponent();
 
-            currentPlayer.drawCard(); //Dr aw a card from the deck into the player's hand.
+            currentPlayer.drawCard(); //Draw a card from the deck into the player's hand.
             currentPlayer.playCard(); //Ask the player to play one of their cards.
             currentPlayer.clearDeadMinions();
             opponent.clearDeadMinions();
