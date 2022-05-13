@@ -23,7 +23,7 @@ public class Game {
             ex.printStackTrace();
         }
 
-        RANDOM_SEED = seed;
+        RANDOM = new Random(seed);
     }
 
     public static Game getInstance() { //Singleton instance getter.
@@ -132,7 +132,7 @@ public class Game {
     }
 
     public int getRandomInt(int max) {
-        return random.nextInt(max);
+        return RANDOM.nextInt(max);
     }
 
     private Player createPlayer(String characterName) {
@@ -146,13 +146,12 @@ public class Game {
 
     private Game() {} //Prevent instantiation of singleton class.
 
-    public static final long RANDOM_SEED;
+    public static final Random RANDOM;
     private static Game instance;
 
     private boolean isPlaying;
     private Player player1;
     private Player player2;
     private Player currentPlayer;
-    private final Random random = new Random(RANDOM_SEED);
 
 }

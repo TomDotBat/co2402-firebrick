@@ -32,7 +32,7 @@ public class DeckReader {
 
         scanner.close();
 
-        Collections.shuffle(deck); //Shuffle the cards.
+        Collections.shuffle(deck, Game.RANDOM); //Shuffle the cards.
         return deck;
     }
 
