@@ -21,9 +21,8 @@ public class TrampleMinion extends Minion {
             attackPower = getAttackPower();
         }
 
-        int powerBefore = attackPower;
-        player.removeHealth(attackPower);
-        printPlayerAttackMessage(player, powerBefore);
+        player.removeHealth(attackPower); //Attack the opponent.
+        printPlayerAttackMessage(player, attackPower);
     }
 
     @Override
