@@ -111,9 +111,9 @@ public class Player {
 
     public boolean hasMinions() {
         for (Minion minion : minions) {
-            //The player must own at least one minion that isn't a wall to be
-            //considered as having minions.
-            if (!(minion instanceof Wall)) {
+            //The player must own at least one minion that is alive and isn't a wall
+            //to be considered as having minions.
+            if (!(minion.isDead() || minion instanceof Wall)) {
                 return true;
             }
         }
