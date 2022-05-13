@@ -43,6 +43,10 @@ public abstract class Minion {
         return health <= 0;
     }
 
+    public int getArmour() {
+        return armour;
+    }
+
     public void addArmour(int amount) {
         armour += amount;
     }

@@ -11,4 +11,10 @@ public class GiveSword extends EquipmentAbility {
     protected void giveEquipment(Minion minion) {
         minion.addAttackPower(getStat());
     }
+
+    @Override
+    protected void printGiveMessage(Minion minion) {
+        System.out.printf("The %s of %s was given a %s attack power bonus from a %s, their attack power is now %d.\n",
+                minion.getName(), minion.getOwner().getName(), getStat(), getName(), minion.getAttackPower());
+    }
 }

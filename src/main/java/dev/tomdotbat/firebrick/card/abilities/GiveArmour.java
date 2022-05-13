@@ -11,4 +11,10 @@ public class GiveArmour extends EquipmentAbility {
     protected void giveEquipment(Minion minion) {
         minion.addArmour(getStat());
     }
+
+    @Override
+    protected void printGiveMessage(Minion minion) {
+        System.out.printf("The %s of %s was given %d %s, they now have %d armour.\n",
+                minion.getName(), minion.getOwner().getName(), getStat(), getName(), minion.getArmour());
+    }
 }

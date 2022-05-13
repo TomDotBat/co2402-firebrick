@@ -28,13 +28,12 @@ public abstract class EquipmentAbility extends CardAbility {
 
             Minion minion = player.getMinions().get(prompt.execute());
             giveEquipment(minion);
-
-            System.out.printf("The %s of %s was given a %s attack power bonus from a %s, their attack power is now %d.\n",
-                    minion.getName(), minion.getOwner().getName(), getStat(), getName(), minion.getAttackPower());
         }
     }
 
     protected abstract void giveEquipment(Minion minion);
+
+    protected abstract void printGiveMessage(Minion minion);
 
     private final int stat;
 }
