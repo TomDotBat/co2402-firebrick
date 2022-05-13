@@ -33,7 +33,9 @@ public class TrampleMinion extends Minion {
         if (player.hasMinions()) {
             //Randomly attack the player's minions until there is no attack power left or they have no minions.
             while (attackPower > 0 && player.hasMinions()) {
-                attackPower = player.getRandomMinion().removeHealth(attackPower);
+                Minion randomMinion = player.getRandomMinion();
+                attackPower = randomMinion.removeHealth(attackPower);
+                printMinionAttackMessage(randomMinion, attackPower);
             }
         }
 
