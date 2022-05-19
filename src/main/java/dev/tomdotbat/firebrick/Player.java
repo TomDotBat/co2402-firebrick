@@ -136,14 +136,15 @@ public class Player {
      * @return a random minion.
      */
     public Minion getRandomMinion() {
-        //Get a random minion from the minions list.
-        Minion randomMinion = minions.get(Game.getInstance().getRandomInt(minions.size()));
+        List<Minion> allowedMinions = new ArrayList<>();
 
-        if (randomMinion instanceof Wall) { //If the minion is a wall ignore it and get a new random minion.
-            return getRandomMinion();
+        for (Minion minion : minions) {
+            if (!(minion instanceof Wall)) { //We only want to select from minions that aren't walls.
+                allowedMinions.add(minion);
+            }
         }
 
-        return randomMinion;
+        return allowedMinions.get(Game.getInstance().getRandomInt(allowedMinions.size()));
     }
 
     /**
