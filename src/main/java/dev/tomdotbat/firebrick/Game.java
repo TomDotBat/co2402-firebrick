@@ -114,7 +114,7 @@ public class Game {
             //Print the statistics of both players at the end of each turn.
             currentPlayer.printStats();
             System.out.println();
-            getCurrentOpponent().printStats();
+            opponent.printStats();
             System.out.println();
         }
     }
