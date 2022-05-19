@@ -1,20 +1,20 @@
-package dev.tomdotbat.firebrick.card.abilities;
+package dev.tomdotbat.firebrick.cards;
 
 import dev.tomdotbat.firebrick.minions.BasicMinion;
 import dev.tomdotbat.firebrick.Player;
 import dev.tomdotbat.firebrick.minions.Minion;
 
 /**
- * An implementation of a card ability that gives the player a basic minion.
+ * An implementation of a card that gives the player a basic minion.
  */
-public class GiveBasicMinion extends MinionAbility {
+public class BasicMinionCard extends MinionCard {
     /**
-     * Constructs a basic minion card ability with the given name, attack power and health.
-     * @param name the name of the card ability.
+     * Constructs a basic minion card with the given name, attack power and health.
+     * @param name the name of the card.
      * @param attackPower the attack power of the minion.
      * @param health the starting health of the minion.
      */
-    public GiveBasicMinion(String name, int attackPower, int health) {
+    public BasicMinionCard(String name, int attackPower, int health) {
         super(name, attackPower, health);
     }
 

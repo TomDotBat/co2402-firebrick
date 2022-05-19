@@ -1,8 +1,6 @@
 package dev.tomdotbat.firebrick;
 
-import dev.tomdotbat.firebrick.card.Card;
-import dev.tomdotbat.firebrick.card.CardType;
-import dev.tomdotbat.firebrick.card.abilities.*;
+import dev.tomdotbat.firebrick.cards.*;
 import dev.tomdotbat.firebrick.exceptions.InvalidDeckFileException;
 
 import java.io.File;
@@ -39,7 +37,7 @@ public class DeckReader {
             String name = scanner.next();
 
             CardType cardType = CardType.getByTypeId(typeId);
-            deck.add(new Card(name, readCardAbility(name, cardType))); //Create the card and add it to the deck.
+            deck.add(readCard(name, cardType)); //Create the card and add it to the deck.
         }
 
         scanner.close();
@@ -49,54 +47,54 @@ public class DeckReader {
     }
 
     /**
-     * Instantiates a card ability from the current line in the deck file.
+     * Instantiates a card from the current line in the deck file.
      * @param name the name of the card.
-     * @param cardType the type of card ability.
+     * @param cardType the type of card.
      * @return a card ability.
      */
-    private CardAbility readCardAbility(String name, CardType cardType) {
-        CardAbility ability;
+    private Card readCard(String name, CardType cardType) {
+        Card card;
 
         switch (cardType) { //Read the required data depending on the card type.
             case MINION_BASIC:
-                ability = new GiveBasicMinion(name, scanner.nextInt(), scanner.nextInt());
+                card = new BasicMinionCard(name, scanner.nextInt(), scanner.nextInt());
                 break;
             case PROJECTILE:
-                ability = new ShootProjectile(name, scanner.nextInt());
+                card = new ProjectileCard(name, scanner.nextInt());
                 break;
             case LIGHTNING:
-                ability = new ShootLightning(name, scanner.nextInt());
+                card = new LightningCard(name, scanner.nextInt());
                 break;
             case BLESS:
-                ability = new BlessTarget(name, scanner.nextInt(), scanner.nextInt());
+                card = new BlessCard(name, scanner.nextInt(), scanner.nextInt());
                 break;
             case VAMPIRE:
-                ability = new GiveVampireMinion(name, scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+                card = new VampireMinionCard(name, scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
                 break;
             case WALL:
                 scanner.nextInt(); //Ignore the attack damage.
-                ability = new GiveWall(name, scanner.nextInt());
+                card = new WallCard(name, scanner.nextInt());
                 break;
             case MINION_HORDE:
-                ability = new GiveHordeMinion(name, scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+                card = new HordeMinionCard(name, scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
                 break;
             case MINION_TRAMPLE:
-                ability = new GiveTrampleMinion(name, scanner.nextInt(), scanner.nextInt());
+                card = new TrampleMinionCard(name, scanner.nextInt(), scanner.nextInt());
                 break;
             case MINION_LEECH:
-                ability = new GiveLeechMinion(name, scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+                card = new LeechMinionCard(name, scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
                 break;
             case SWORD:
-                ability = new GiveSword(name, scanner.nextInt());
+                card = new SwordCard(name, scanner.nextInt());
                 break;
             case ARMOUR:
-                ability = new GiveArmour(name, scanner.nextInt());
+                card = new ArmourCard(name, scanner.nextInt());
                 break;
             default:
                 throw new InvalidDeckFileException("Failed to determine a card type in " + filePath + ".");
         }
 
-        return ability;
+        return card;
     }
 
     private final Scanner scanner;
