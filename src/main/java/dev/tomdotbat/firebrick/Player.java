@@ -179,6 +179,6 @@ public class Player {
     private int health = 30;
     private final List<Card> hand = new ArrayList<>();
     private final Stack<Card> deck;
-    private List<Minion> minions = new ArrayList<>();
+    private final List<Minion> minions = new ArrayList<>();
     private boolean isComputer;
 }
