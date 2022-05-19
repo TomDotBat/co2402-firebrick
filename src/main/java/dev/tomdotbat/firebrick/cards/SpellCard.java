@@ -1,15 +1,15 @@
-package dev.tomdotbat.firebrick.card.abilities;
+package dev.tomdotbat.firebrick.cards;
 
 /**
- * An abstract class to represent spell card abilities.
+ * An abstract class to represent spell cards.
  */
-public abstract class SpellAbility extends CardAbility {
+public abstract class SpellCard extends Card {
     /**
-     * Constructs a spell card ability with the given name and attack damage.
-     * @param name the name of the card ability.
+     * Constructs a spell card with the given name and attack damage.
+     * @param name the name of the card.
      * @param damage the amount of damage the spell deals.
      */
-    public SpellAbility(String name, int damage) {
+    public SpellCard(String name, int damage) {
         super(name);
         this.damage = damage;
     }

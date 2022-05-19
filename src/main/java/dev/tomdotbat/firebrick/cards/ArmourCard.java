@@ -1,23 +1,23 @@
-package dev.tomdotbat.firebrick.card.abilities;
+package dev.tomdotbat.firebrick.cards;
 
 import dev.tomdotbat.firebrick.minions.Minion;
 
 /**
- * An implementation of a card ability that gives a minion armour.
+ * An implementation of a card that gives a minion armour.
  */
-public class GiveArmour extends EquipmentAbility {
+public class ArmourCard extends EquipmentCard {
     /**
-     * Constructs an armour giving ability with the given name and protection level.
-     * @param name the name of the ability.
+     * Constructs an armour giving card with the given name and protection level.
+     * @param name the name of the card.
      * @param protection the protection level of the armour.
      */
-    public GiveArmour(String name, int protection) {
+    public ArmourCard(String name, int protection) {
         super(name, protection);
     }
 
     /**
-     * Gives the equipment to the given minion.
-     * @param minion the minion to give the equipment to.
+     * Gives armour to the given minion.
+     * @param minion the minion to give the armour to.
      */
     @Override
     protected void giveEquipment(Minion minion) {

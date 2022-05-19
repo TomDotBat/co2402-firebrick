@@ -1,4 +1,4 @@
-package dev.tomdotbat.firebrick.card.abilities;
+package dev.tomdotbat.firebrick.cards;
 
 import dev.tomdotbat.firebrick.Player;
 import dev.tomdotbat.firebrick.minions.Minion;
@@ -6,15 +6,15 @@ import dev.tomdotbat.firebrick.prompts.NumberedStringPrompt;
 import dev.tomdotbat.firebrick.prompts.Prompt;
 
 /**
- * An abstract class to represent equipment card abilities.
+ * An abstract class to represent equipment cards.
  */
-public abstract class EquipmentAbility extends CardAbility {
+public abstract class EquipmentCard extends Card {
     /**
-     * Constructs an equipment card ability with the given name and stat.
-     * @param name the name of the card ability.
+     * Constructs an equipment card with the given name and stat.
+     * @param name the name of the card.
      * @param stat the multiplier of the equipment.
      */
-    public EquipmentAbility(String name, int stat) {
+    public EquipmentCard(String name, int stat) {
         super(name);
         this.stat = stat;
     }
@@ -27,10 +27,10 @@ public abstract class EquipmentAbility extends CardAbility {
         return stat;
     }
 
-    /**
-     * Prompts the player to give the equipment to one of their minions. A health bonus is given if they have none.
-     * @param player the player to give the equipment to.
-     * @param target the opponent to play perform the ability on.
+     /**
+     * Gives the player's preferred minion the equipment, the player is given a health bonus if they have no minions.
+     * @param player the player playing the card.
+     * @param target the opponent to play the card against.
      */
     @Override
     public void play(Player player, Player target) {

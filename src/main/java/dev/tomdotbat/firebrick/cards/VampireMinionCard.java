@@ -1,21 +1,21 @@
-package dev.tomdotbat.firebrick.card.abilities;
+package dev.tomdotbat.firebrick.cards;
 
 import dev.tomdotbat.firebrick.Player;
 import dev.tomdotbat.firebrick.minions.Minion;
 import dev.tomdotbat.firebrick.minions.VampireMinion;
 
 /**
- * An implementation of a card ability that gives the player a vampire minion.
+ * An implementation of a card that gives the player a vampire minion.
  */
-public class GiveVampireMinion extends MinionAbility {
+public class VampireMinionCard extends MinionCard {
     /**
-     * Constructs a vampire minion card ability with the given name, attack power, health and heal amount.
-     * @param name the name of the card ability.
+     * Constructs a vampire minion card with the given name, attack power, health and heal amount.
+     * @param name the name of the card.
      * @param attackPower the attack power of the minion.
      * @param health the starting health of the minion.
      * @param healAmount the amount of health minion heals by after each attack.
      */
-    public GiveVampireMinion(String name, int attackPower, int health, int healAmount) {
+    public VampireMinionCard(String name, int attackPower, int health, int healAmount) {
         super(name, attackPower, health);
         this.healAmount = healAmount;
     }

@@ -1,19 +1,19 @@
-package dev.tomdotbat.firebrick.card.abilities;
+package dev.tomdotbat.firebrick.cards;
 
 import dev.tomdotbat.firebrick.Player;
 import dev.tomdotbat.firebrick.minions.Minion;
 
 /**
- * An abstract class to represent minion card abilities.
+ * An abstract class to represent minion cards.
  */
-public abstract class MinionAbility extends CardAbility {
+public abstract class MinionCard extends Card {
     /**
-     * Constructs a minion card ability with the given name, attack power and health.
-     * @param name the name of the card ability.
+     * Constructs a minion card with the given name, attack power and health.
+     * @param name the name of the card.
      * @param attackPower the attack power of the minion.
      * @param health the starting health of the minion.
      */
-    public MinionAbility(String name, int attackPower, int health) {
+    public MinionCard(String name, int attackPower, int health) {
         super(name);
         this.attackPower = attackPower;
         this.health = health;
@@ -36,9 +36,9 @@ public abstract class MinionAbility extends CardAbility {
     }
 
     /**
-     * Gives the player the minion.
-     * @param player the player to perform the card ability.
-     * @param target the opponent to play perform the ability on.
+     * Plays the card as the given player on the provided target.
+     * @param player the player playing the card.
+     * @param target the opponent to play the card against.
      */
     @Override
     public void play(Player player, Player target) {

@@ -1,7 +1,7 @@
-package dev.tomdotbat.firebrick.card;
+package dev.tomdotbat.firebrick.cards;
 
 /**
- * An enum that defines all possible card ability types.
+ * An enum that defines all possible card types.
  */
 public enum CardType {
     INVALID(0),

@@ -1,6 +1,6 @@
 package dev.tomdotbat.firebrick;
 
-import dev.tomdotbat.firebrick.card.Card;
+import dev.tomdotbat.firebrick.cards.Card;
 import dev.tomdotbat.firebrick.minions.Minion;
 import dev.tomdotbat.firebrick.minions.Wall;
 import dev.tomdotbat.firebrick.prompts.NumberedStringPrompt;
