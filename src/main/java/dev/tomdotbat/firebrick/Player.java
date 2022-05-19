@@ -1,7 +1,6 @@
 package dev.tomdotbat.firebrick;
 
 import dev.tomdotbat.firebrick.card.Card;
-import dev.tomdotbat.firebrick.exceptions.EmptyDeckException;
 import dev.tomdotbat.firebrick.minions.Minion;
 import dev.tomdotbat.firebrick.minions.Wall;
 import dev.tomdotbat.firebrick.prompts.NumberedStringPrompt;
@@ -11,24 +10,50 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * The class to represent players of the game.
+ */
 public class Player {
+    /**
+     * Constructs a player with a name and card deck.
+     * @param name the name of the player, eg: Wizard or Sorceress.
+     * @param deck the deck of cards to give the player.
+     */
     public Player(String name, Stack<Card> deck) {
         this.name = name;
         this.deck = deck;
     }
 
+    /**
+     * Gets the player's current health.
+     * @return the player's health.
+     */
     public int getHealth() {
         return health;
     }
 
+    /**
+     * Gets the player's name.
+     * @return the player's name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Adds the given amount of health to the player.
+     * @param amount the amount of health to give the player.
+     */
     public void addHealth(int amount) {
         health += amount;
     }
 
+    /**
+     * Removes the given amount of health from the player. When the player has at least one minion, the health will
+     * be taken from a random minion.
+     * @param amount the amount of health to take from the player.
+     * @param playerOnly whether we should directly attack the player and avoid their minions.
+     */
     public void removeHealth(int amount, boolean playerOnly) {
         if (playerOnly || !hasMinions()) {
             health -= amount;
@@ -36,35 +61,64 @@ public class Player {
             if (health <= 0) { //We're dead, finish the game.
                 Game.getInstance().finish();
             }
-        } else {
+        }
+        else {
             getRandomMinion().removeHealth(health);
         }
     }
 
+    /**
+     * Removes health from the player. When the player has at least one minion, the health will
+     * be taken from a random minion.
+     * @param amount the amount of health to take from the player.
+     */
     public void removeHealth(int amount) {
         removeHealth(amount, false);
     }
 
+    /**
+     * Gets whether the player is dead or not.
+     * @return whether the player is dead or not.
+     */
     public boolean isDead() {
         return health <= 0;
     }
 
+    /**
+     * Gets the AI state of the player.
+     * @return the AI state of the player.
+     */
     public boolean isComputer() {
         return isComputer;
     }
 
+    /**
+     * Sets the AI state of the player.
+     * @param computer the preferred AI state.
+     */
     public void setIsComputer(boolean computer) {
         isComputer = computer;
     }
 
+    /**
+     * Gets the player's minions.
+     * @return the player's minions.
+     */
     public List<Minion> getMinions() {
         return minions;
     }
 
+    /**
+     * Gives the player a minion.
+     * @param minion the minion to give.
+     */
     public void giveMinion(Minion minion) {
         minions.add(minion);
     }
 
+    /**
+     * Checks the player's minions and clears out any dead ones.
+     */
     public void clearDeadMinions() { //Removes any dead minions from the player's minion list.
         List<Minion> deadMinions = new ArrayList<>();
 
@@ -77,6 +131,10 @@ public class Player {
         minions.removeAll(deadMinions);
     }
 
+    /**
+     * Gets one of the player's minions at random.
+     * @return a random minion.
+     */
     public Minion getRandomMinion() {
         //Get a random minion from the minions list.
         Minion randomMinion = minions.get(Game.getInstance().getRandomInt(minions.size()));
@@ -88,12 +146,20 @@ public class Player {
         return randomMinion;
     }
 
+    /**
+     * Orders the player's minions to attack.
+     * @param target the player to attack.
+     */
     public void minionAttack(Player target) {
         for (Minion minion : minions) {
             minion.attackPlayer(target);
         }
     }
 
+    /**
+     * Gets the player's first wall minion if they have one.
+     * @return the player's wall minion.
+     */
     public Wall getWall() {
         for (Minion minion : minions) {
             //Search for a wall in the player's minions and return it if it exists.
@@ -105,10 +171,18 @@ public class Player {
         return null;
     }
 
+    /**
+     * Gets whether the player has a wall minion or not.
+     * @return whether the player has a wall or not.
+     */
     public boolean hasWall() {
         return getWall() != null; //If the player's wall is null they don't have one.
     }
 
+    /**
+     * Gets whether the player has any minions or not.
+     * @return whether the palyer has minions or not.
+     */
     public boolean hasMinions() {
         for (Minion minion : minions) {
             //The player must own at least one minion that is alive and isn't a wall
@@ -121,6 +195,10 @@ public class Player {
         return false;
     }
 
+    /**
+     * Gets a list of the player's minion names.
+     * @return the player's minion names.
+     */
     public List<String> getMinionNames() {
         List<String> minionNames = new ArrayList<>();
 
@@ -131,6 +209,10 @@ public class Player {
         return minionNames;
     }
 
+    /**
+     * Gets a list of the player's card names.
+     * @return the player's card names.
+     */
     public List<String> getCardNames() {
         List<String> cardNames = new ArrayList<>();
 
@@ -141,17 +223,18 @@ public class Player {
         return cardNames;
     }
 
+    /**
+     * Draws a card from the player's deck and puts it in their hand.
+     */
     public void drawCard() {
         Card card = deck.pop(); //Get the next card from the deck and add it to our hand.
-
-        if (card == null) {
-            throw new EmptyDeckException(name + " attempted to draw a card from their deck but it is empty.");
-        }
-
         hand.add(card);
         System.out.println(name + " draws " + card.getName());
     }
 
+    /**
+     * Prompts the player to play one of the cards in their hand.
+     */
     public void playCard() {
         //Prompt the user to play one of their cards.
         Prompt<Integer> prompt = new NumberedStringPrompt("Which card would you like to play?")
@@ -168,6 +251,9 @@ public class Player {
         clearDeadMinions();
     }
 
+    /**
+     * Prints the player's health and any cards they have on the table.
+     */
     public void printStats() {
         System.out.println(name + " Statistics");
         System.out.println("----------------------");

@@ -11,7 +11,15 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.Stack;
 
+/**
+ * Loads a card deck into the game for a given file location.
+ */
 public class DeckReader {
+    /**
+     * Constructs a deck reader for the given file.
+     * @param filePath the location of the deck file.
+     * @throws FileNotFoundException when the file location provided is invalid.
+     */
     public DeckReader(String filePath) throws FileNotFoundException {
         this.filePath = filePath;
 
@@ -19,6 +27,11 @@ public class DeckReader {
         scanner = new Scanner(file); //Create a scanner on the file at the given path.
     }
 
+    /**
+     * Reads from the deck file and creates a deck of cards.
+     * @return a deck of cards.
+     * @throws FileNotFoundException when the file location provided is invalid.
+     */
     public Stack<Card> read() throws FileNotFoundException {
         Stack<Card> deck = new Stack<>();
 
@@ -36,6 +49,12 @@ public class DeckReader {
         return deck;
     }
 
+    /**
+     * Instantiates a card ability from the current line in the deck file.
+     * @param name the name of the card.
+     * @param cardType the type of card ability.
+     * @return a card ability.
+     */
     private CardAbility readCardAbility(String name, CardType cardType) {
         CardAbility ability = null;
 
@@ -81,6 +100,6 @@ public class DeckReader {
         return ability;
     }
 
-    private Scanner scanner;
+    private final Scanner scanner;
     private final String filePath;
 }

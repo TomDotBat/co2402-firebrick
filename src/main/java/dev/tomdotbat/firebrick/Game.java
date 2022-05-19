@@ -9,7 +9,13 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Singleton class to handle the game creation, completion and turns.
+ */
 public class Game {
+    /*
+     * Loads the random seed and instantiates a random number generator.
+     */
     static {
         long seed = 0;
 
@@ -26,6 +32,10 @@ public class Game {
         RANDOM = new Random(seed);
     }
 
+    /**
+     * Gets the singleton instance of the class.
+     * @return the singleton instance.
+     */
     public static Game getInstance() { //Singleton instance getter.
         if (instance == null) {
             instance = new Game();
@@ -34,6 +44,10 @@ public class Game {
         return instance;
     }
 
+    /**
+     * Starts the game and prompts the user for their preferred character and
+     * opponent AI state.
+     */
     public void start() {
         Prompt<String> prompt = new RestrictedStringPrompt("Which character would you like to play as?")
                 .withAnswer("Sorceress")
@@ -71,6 +85,9 @@ public class Game {
         finish();
     }
 
+    /**
+     * Prints the game outcome and finishes the program.
+     */
     public void finish() {
         isPlaying = false;
 
@@ -90,6 +107,10 @@ public class Game {
         System.exit(0); //Exit the process.
     }
 
+    /**
+     * Performs the logic for each turn in the game.
+     * @param roundNo the current round number.
+     */
     public void executeTurn(int roundNo) {
         System.out.println();
         System.out.println("Round " + roundNo);
@@ -119,22 +140,36 @@ public class Game {
         }
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
+    /**
+     * Gets the opponent for the current player.
+     * @return the opponent.
+     */
     public Player getCurrentOpponent() {
         return currentPlayer == player1 ? player2 : player1;
     }
 
+    /**
+     * Gets whether the AI is currently playing their turn.
+     * @return
+     */
     public boolean isComputerPlaying() {
         return currentPlayer != null && currentPlayer.isComputer();
     }
 
+    /**
+     * Gets a random integer using the random seed.
+     * @param max the maximum value.
+     * @return a random integer.
+     */
     public int getRandomInt(int max) {
         return RANDOM.nextInt(max);
     }
 
+    /**
+     * Creates an instance of the player class for the given character name.
+     * @param characterName the name of the player's character.
+     * @return a player.
+     */
     private Player createPlayer(String characterName) {
         try { //Creates a player with the given name and loads their deck file.
             return new Player(characterName, new DeckReader("./" + characterName + ".txt").read());
