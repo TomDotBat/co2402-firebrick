@@ -31,7 +31,6 @@ public class NumberedStringPrompt extends Prompt<Integer> {
                 .append("\n");
         }
 
-
         return super.getMessage() + "\n" + answerList;
     }
 
