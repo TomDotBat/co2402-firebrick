@@ -3,6 +3,7 @@ package dev.tomdotbat.firebrick;
 import dev.tomdotbat.firebrick.exceptions.InvalidDeckFileException;
 import dev.tomdotbat.firebrick.prompts.Prompt;
 import dev.tomdotbat.firebrick.prompts.RestrictedStringPrompt;
+import dev.tomdotbat.firebrick.prompts.StringPrompt;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,16 +50,23 @@ public class Game {
      * opponent AI state.
      */
     public void start() {
-        Prompt<String> prompt = new RestrictedStringPrompt("Which character would you like to play as?")
+        String characterSelection = new RestrictedStringPrompt("Which character would you like to play as?")
                 .withAnswer("Sorceress")
                 .withAnswer("Wizard")
-                .withDefaultAnswer("Sorceress");
+                .withDefaultAnswer("Sorceress")
+                .execute();
 
-        String selection = prompt.execute(); //Create the player classes based on the user's preference.
-        player1 = createPlayer(selection);
-        player2 = createPlayer(selection.equals("Sorceress") ? "Wizard" : "Sorceress");
+        boolean shouldShuffle = new RestrictedStringPrompt("Would you like the decks to be shuffled?")
+                .withAnswer("Yes")
+                .withAnswer("No")
+                .withDefaultAnswer("Yes")
+                .execute().equals("Yes");
 
-        prompt = new RestrictedStringPrompt("Would you like player 2 to be an AI?")
+        //Create the players based on the user's preference.
+        player1 = createPlayer(characterSelection, shouldShuffle);
+        player2 = createPlayer(characterSelection.equals("Sorceress") ? "Wizard" : "Sorceress", shouldShuffle);
+
+        StringPrompt prompt = new RestrictedStringPrompt("Would you like player 2 to be an AI?")
                 .withAnswer("Yes")
                 .withAnswer("No")
                 .withDefaultAnswer("Yes");
@@ -168,11 +176,14 @@ public class Game {
     /**
      * Creates an instance of the player class for the given character name.
      * @param characterName the name of the player's character.
+     * @param shouldShuffle whether the deck should be shuffled or not.
      * @return a player.
      */
-    private Player createPlayer(String characterName) {
+    private Player createPlayer(String characterName, boolean shouldShuffle) {
         try { //Creates a player with the given name and loads their deck file.
-            return new Player(characterName, new DeckReader("./" + characterName + ".txt").read());
+            DeckReader deckReader = new DeckReader("./" + characterName + ".txt");
+            deckReader.setShouldShuffle(shouldShuffle);
+            return new Player(characterName, deckReader.read());
         }
         catch (FileNotFoundException ex) {
             throw new InvalidDeckFileException("Failed to load the deck file for " + characterName + ".");

@@ -26,6 +26,14 @@ public class DeckReader {
     }
 
     /**
+     * Sets whether the deck should be shuffled or not.
+     * @param shouldShuffle whether the deck should be shuffled or not.
+     */
+    public void setShouldShuffle(boolean shouldShuffle) {
+        this.shouldShuffle = shouldShuffle;
+    }
+
+    /**
      * Reads from the deck file and creates a deck of cards.
      * @return a deck of cards.
      */
@@ -42,7 +50,10 @@ public class DeckReader {
 
         scanner.close();
 
-        Collections.shuffle(deck, Game.RANDOM); //Shuffle the cards.
+        if (shouldShuffle) {
+            Collections.shuffle(deck, Game.RANDOM); //Shuffle the cards if desired.
+        }
+
         return deck;
     }
 
@@ -99,4 +110,5 @@ public class DeckReader {
 
     private final Scanner scanner;
     private final String filePath;
+    private boolean shouldShuffle = false;
 }
