@@ -37,7 +37,7 @@ public abstract class Spell {
      * @param caster the player casting the spell.
      * @param opponent the player being attacked.
      */
-    abstract void cast(Player caster, Player opponent);
+    public abstract void cast(Player caster, Player opponent);
 
     private final String name;
     private final int damage;

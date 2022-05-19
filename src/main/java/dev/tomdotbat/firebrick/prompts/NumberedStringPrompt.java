@@ -70,7 +70,7 @@ public class NumberedStringPrompt extends Prompt<Integer> {
         do {
             System.out.println(getMessage());
 
-            String inputString = scanner.nextLine(); //Read the next input and attempt to parse it as an integer.
+            String inputString = SCANNER.nextLine(); //Read the next input and attempt to parse it as an integer.
             try {
                 input = Integer.parseInt(inputString);
             } catch (NumberFormatException ignored) {}

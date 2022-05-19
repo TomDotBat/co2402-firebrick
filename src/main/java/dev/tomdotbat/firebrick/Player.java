@@ -181,7 +181,7 @@ public class Player {
 
     /**
      * Gets whether the player has any minions or not.
-     * @return whether the palyer has minions or not.
+     * @return whether the player has minions or not.
      */
     public boolean hasMinions() {
         for (Minion minion : minions) {

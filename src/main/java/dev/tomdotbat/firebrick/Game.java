@@ -150,7 +150,7 @@ public class Game {
 
     /**
      * Gets whether the AI is currently playing their turn.
-     * @return
+     * @return whether the AI is currently playing their turn.
      */
     public boolean isComputerPlaying() {
         return currentPlayer != null && currentPlayer.isComputer();

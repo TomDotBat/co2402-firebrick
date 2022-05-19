@@ -29,6 +29,6 @@ public abstract class Prompt<T> {
      */
     public abstract T execute();
 
-    protected static Scanner scanner = new Scanner(System.in);
+    protected static final Scanner SCANNER = new Scanner(System.in);
     private final String message;
 }

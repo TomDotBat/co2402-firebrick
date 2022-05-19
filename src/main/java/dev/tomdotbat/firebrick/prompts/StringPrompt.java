@@ -39,7 +39,7 @@ public class StringPrompt extends Prompt<String> {
 
         do {
             System.out.println(getMessage());
-            input = scanner.nextLine();
+            input = SCANNER.nextLine();
 
             //Use the default answer if one is set and no input was given.
             if (defaultAnswer != null && input.isEmpty()) {

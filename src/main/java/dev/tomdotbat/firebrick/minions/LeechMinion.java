@@ -20,7 +20,7 @@ public class LeechMinion extends Minion {
     }
 
     /**
-     * Orders the minion to attack the given player and heals their owner..
+     * Orders the minion to attack the given player and heals their owner.
      * @param player the player to attack.
      */
     @Override

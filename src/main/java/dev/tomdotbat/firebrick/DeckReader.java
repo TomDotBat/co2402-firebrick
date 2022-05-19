@@ -30,9 +30,8 @@ public class DeckReader {
     /**
      * Reads from the deck file and creates a deck of cards.
      * @return a deck of cards.
-     * @throws FileNotFoundException when the file location provided is invalid.
      */
-    public Stack<Card> read() throws FileNotFoundException {
+    public Stack<Card> read() {
         Stack<Card> deck = new Stack<>();
 
         while (scanner.hasNextLine()) { //Iterate over every line in the file to load the cards.
@@ -56,7 +55,7 @@ public class DeckReader {
      * @return a card ability.
      */
     private CardAbility readCardAbility(String name, CardType cardType) {
-        CardAbility ability = null;
+        CardAbility ability;
 
         switch (cardType) { //Read the required data depending on the card type.
             case MINION_BASIC:
