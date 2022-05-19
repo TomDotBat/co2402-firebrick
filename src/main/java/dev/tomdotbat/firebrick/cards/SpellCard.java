@@ -1,7 +1,5 @@
 package dev.tomdotbat.firebrick.cards;
 
-import dev.tomdotbat.firebrick.spells.Spell;
-
 /**
  * An abstract class to represent spell cards.
  */
